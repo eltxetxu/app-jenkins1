@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'PUSH'
                 sh 'docker tag app:test app:stable'
-                sh 'docker push app:test app:stable'
+                sh 'docker push app:stable'
             }
         }
     }
