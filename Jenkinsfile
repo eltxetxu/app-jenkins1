@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Test') {
             steps { 
-                echo 'TEST'
+                echo 'Test'
                 sh 'docker run --rm --name app -id -p 80:80 app:test'
                 sh '/bin/nc -vz localhost 80'
             }
@@ -20,9 +20,11 @@ pipeline {
         }
         stage('Push registry') {
             steps {
-                echo 'PUSH'
-                sh 'docker tag app:test eltxtextu/app:stable'
-                sh 'docker push eltxtextu/app:stable'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-eltxetxu', passwordVariable: 'password', usernameVariable: 'user')]) {
+                    echo 'PUSH'
+                    sh 'docker tag app:test eltxtextu/app:stable'
+                    sh 'docker push eltxtextu/app:stable'
+                }
             }
         }
     }
