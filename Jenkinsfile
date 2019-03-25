@@ -21,7 +21,7 @@ pipeline {
         stage('Push registry') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub') {
-                    echo 'PUSH'
+                    echo 'Push Dockerhub'
                     sh 'docker tag app:test eltxtextu/app:stable'
                     sh 'docker push eltxtextu/app:stable'
                 }
